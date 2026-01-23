@@ -121,27 +121,31 @@ function App() {
                 <td>{player.status}</td>
 
                 {/* Add Score */}
-                <td>
-                  <input
-                    type="number"
-                    disabled={player.status === "OUT"}
-                    placeholder="Score"
-                    onKeyDown={async (e) => {
-                      if (e.key === "Enter") {
-                        const value = Number(e.target.value);
-                        if (!value) return;
+               <td>
+  <input
+    type="number"
+    disabled={player.status === "OUT"}
+    placeholder="Score"
+    onKeyDown={async (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); // ✅ stops page reload
 
-                        const res = await addScore(
-                          matchId,
-                          index,
-                          value
-                        );
-                        setPlayers(res.data.players);
-                        e.target.value = "";
-                      }
-                    }}
-                  />
-                </td>
+        const value = Number(e.target.value);
+        if (!value) return;
+
+        try {
+          const res = await addScore(matchId, index, value);
+          setPlayers(res.data.players);
+          e.target.value = "";
+        } catch (err) {
+          console.error(err);
+          alert("Failed to add score");
+        }
+      }
+    }}
+  />
+</td>
+
 
                 {/* History */}
                 <td>
