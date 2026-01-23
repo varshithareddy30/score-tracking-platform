@@ -52,11 +52,23 @@ function App() {
       {!matchId && players.length === Number(numPlayers) && (
         <button
           onClick={async () => {
-            const names = players.map((p) => p.name);
-            const res = await startMatch(names);
-            setPlayers(res.data.players);
-            setMatchId(res.data._id);
-          }}
+  const names = players.map(p => p.name?.trim());
+
+  if (names.some(name => !name)) {
+    alert("Please enter all player names");
+    return;
+  }
+
+  try {
+    const res = await startMatch(names);
+    setPlayers(res.data.players);
+    setMatchId(res.data._id);
+  } catch (err) {
+    console.error(err);
+    alert("Failed to start match");
+  }
+}}
+
         >
           ▶ Start Match
         </button>

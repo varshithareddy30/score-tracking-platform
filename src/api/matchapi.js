@@ -5,9 +5,12 @@ const API = axios.create({
 });
 
 // START MATCH
-export const startMatch = (players) => {
-  return API.post("/start", { players });
+export const startMatch = (playerNames) => {
+  return API.post("/start", {
+    players: playerNames
+  });
 };
+
 
 // ADD SCORE
 export const addScore = (matchId, playerIndex, value) => {
