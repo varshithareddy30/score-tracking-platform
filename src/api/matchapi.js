@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/match"
+  baseURL: "https://rummy-score-tracker-x64p.onrender.com/api/match"
+
 });
 
 export const startMatch = (players) =>
