@@ -8,11 +8,16 @@ exports.addScore = async (req, res) => {
       return res.status(404).json({ message: "Match not found" });
     }
 
-    match.players[playerIndex].score += score;
-    match.players[playerIndex].history.push(score);
+    const player = match.players[playerIndex];
+    if (!player) {
+      return res.status(400).json({ message: "Invalid player index" });
+    }
 
-    if (match.players[playerIndex].score >= 201) {
-      match.players[playerIndex].status = "OUT";
+    player.score += score;
+    player.history.push(score);
+
+    if (player.score >= 201) {
+      player.status = "OUT";
     }
 
     await match.save();
@@ -20,6 +25,6 @@ exports.addScore = async (req, res) => {
     res.json({ players: match.players });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Failed to add score" });
+    res.status(500).json({ message: "Add score failed" });
   }
 };
