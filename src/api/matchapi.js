@@ -2,17 +2,33 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://rummy-score-tracker-x64p.onrender.com/api/match"
-
 });
 
-export const startMatch = (players) =>
-  API.post("/start", { players });
+// START MATCH
+export const startMatch = (players) => {
+  return API.post("/start", { players });
+};
 
-export const addScore = (matchId, playerIndex, value) =>
-  API.post("/add-score", { matchId, playerIndex, value });
+// ADD SCORE
+export const addScore = (matchId, playerIndex, value) => {
+  return API.post("/add-score", {
+    matchId,
+    playerIndex,
+    value
+  });
+};
 
-export const rejoinPlayer = (matchId, playerIndex) =>
-  API.post("/rejoin", { matchId, playerIndex });
+// REJOIN PLAYER
+export const rejoinPlayer = (matchId, playerIndex) => {
+  return API.post("/rejoin", {
+    matchId,
+    playerIndex
+  });
+};
 
-export const resetMatch = (matchId) =>
-  API.post("/reset", { matchId });
+// RESET MATCH
+export const resetMatch = (matchId) => {
+  return API.post("/reset", {
+    matchId
+  });
+};
