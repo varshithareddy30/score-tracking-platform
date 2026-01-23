@@ -61,7 +61,9 @@ function App() {
 
   try {
     const res = await startMatch(names);
-    setPlayers(res.data.players);
+    if (Array.isArray(res?.data?.players)) {
+  setPlayers(res.data.players);
+}
     setMatchId(res.data._id);
   } catch (err) {
     console.error(err);
