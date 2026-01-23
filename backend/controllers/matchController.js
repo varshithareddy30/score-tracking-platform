@@ -1,37 +1,25 @@
 const Match = require("../models/Match");
-exports.startMatch = async (req, res) => {
+exports.addScore = async (req, res) => {
   try {
-    const { players } = req.body;
+    const { matchId, playerIndex, score } = req.body;
 
-    if (!players || !Array.isArray(players) || players.length === 0) {
-      return res.status(400).json({ message: "Players array is required" });
+    const match = await Match.findById(matchId);
+    if (!match) {
+      return res.status(404).json({ message: "Match not found" });
     }
 
-    const match = new Match({
-      players: players.map(name => ({
-        name,
-        score: 0,
-        status: "Active",
-        history: []
-      }))
-    });
+    match.players[playerIndex].score += score;
+    match.players[playerIndex].history.push(score);
+
+    if (match.players[playerIndex].score >= 201) {
+      match.players[playerIndex].status = "OUT";
+    }
 
     await match.save();
-    res.status(201).json(match);
+
+    res.json({ players: match.players });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Failed to add score" });
   }
-};
-
-exports.addScore = async (req, res) => {
-  res.json({ message: "addScore ok" });
-};
-
-exports.rejoinPlayer = async (req, res) => {
-  res.json({ message: "rejoin ok" });
-};
-
-exports.resetMatch = async (req, res) => {
-  res.json({ message: "reset ok" });
 };
