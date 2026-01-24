@@ -1,17 +1,20 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "https://rummy-score-tracker-mt8s.onrender.com/api/match"
-});
+const BASE_URL = "http://localhost:5000/api/match";
+// when deployed → replace with Render URL
 
-export const startMatch = (playerNames) =>
-  API.post("/start", { players: playerNames });
+export const startMatch = (players) =>
+  axios.post(`${BASE_URL}/start`, { players });
 
-export const addScore = (data) =>
-  API.post("/add-score", data);
+export const addScore = (matchId, playerIndex, score) =>
+  axios.post(`${BASE_URL}/add-score`, { matchId, playerIndex, score });
 
-export const rejoinPlayer = (data) =>
-  API.post("/rejoin", data);
+export const rejoinPlayer = (matchId, playerIndex) =>
+  axios.post("http://localhost:5000/api/match/rejoin", {
+    matchId,
+    playerIndex
+  });
 
-export const resetMatch = () =>
-  API.post("/reset");
+
+export const resetMatch = (matchId) =>
+  axios.post(`${BASE_URL}/reset`, { matchId });

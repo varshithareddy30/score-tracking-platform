@@ -8,7 +8,6 @@ const {
   resetMatch
 } = require("../controllers/matchController");
 
-// 👇 THESE MUST ALL BE FUNCTIONS
 router.post("/start", startMatch);
 router.post("/add-score", addScore);
 router.post("/rejoin", rejoinPlayer);

@@ -1,3 +1,5 @@
+require("dotenv").config(); // 🔴 THIS LINE FIXES YOUR ERROR
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -6,23 +8,41 @@ const matchRoutes = require("./routes/matchRoutes");
 
 const app = express();
 
-// Middleware
-app.use(cors());
+/* ======================
+   MIDDLEWARE
+====================== */
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST"],
+}));
+
 app.use(express.json());
 
-// Routes
+/* ======================
+   ROUTES
+====================== */
 app.use("/api/match", matchRoutes);
 
-// MongoDB Connection
+app.get("/", (req, res) => {
+  res.send("Rummy Score Tracker Backend is running 🚀");
+});
+
+/* ======================
+   MONGODB CONNECTION
+====================== */
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err.message);
+    process.exit(1);
+  });
 
-
-// Server
+/* ======================
+   SERVER START
+====================== */
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
