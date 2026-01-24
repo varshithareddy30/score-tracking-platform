@@ -130,7 +130,11 @@ function App() {
   disabled={player.status === "OUT"}
   onClick={async () => {
     const value = Number(player.tempScore);
-    if (!value) return;
+
+if (isNaN(value) || value < 0) {
+  alert("Invalid score");
+  return;
+}
 
     try {
       const res = await addScore(matchId, index, value);
