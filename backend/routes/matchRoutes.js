@@ -9,7 +9,7 @@ const {
 } = require("../controllers/matchController");
 
 router.post("/start", startMatch);
-router.post("/add-score", addScore);
+router.post("/add", addScore);
 router.post("/rejoin", rejoinPlayer);
 router.post("/reset", resetMatch);
 

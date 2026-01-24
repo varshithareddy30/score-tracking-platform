@@ -29,14 +29,19 @@ const addScore = async (req, res) => {
   try {
     const { matchId, playerIndex, score } = req.body;
 
+    if (score === undefined)
+      return res.status(400).json({ message: "Score required" });
+
     const match = await Match.findById(matchId);
-    if (!match) return res.status(404).json({ message: "Match not found" });
+    if (!match)
+      return res.status(404).json({ message: "Match not found" });
 
     const player = match.players[playerIndex];
-    if (!player) return res.status(400).json({ message: "Invalid player index" });
+    if (!player)
+      return res.status(404).json({ message: "Player not found" });
 
-    player.score += score;
-    player.history.push(score);
+    player.score += Number(score);
+    player.history.push(Number(score));
 
     if (player.score >= 201) {
       player.status = "OUT";
@@ -44,11 +49,13 @@ const addScore = async (req, res) => {
 
     await match.save();
     res.json({ players: match.players });
+
   } catch (err) {
     console.error("addScore error:", err);
     res.status(500).json({ message: "Add score failed" });
   }
 };
+
 
 const rejoinPlayer = async (req, res) => {
   try {
