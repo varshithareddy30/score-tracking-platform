@@ -156,6 +156,23 @@ if (isNaN(value) || value < 0) {
                       ? player.history.join(", ")
                       : "-"}
                   </td>
+                  {player.history.length > 0 && (
+  <button
+    onClick={async () => {
+      const lastScore = player.history[player.history.length - 1];
+
+      try {
+        const res = await addScore(matchId, index, -lastScore);
+        setPlayers(res.data.players);
+      } catch {
+        alert("Undo failed");
+      }
+    }}
+  >
+    ↩ Undo
+  </button>
+)}
+
 
                   {/* Re-Join */}
                   <td>
