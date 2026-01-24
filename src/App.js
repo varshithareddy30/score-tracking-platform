@@ -115,29 +115,35 @@ function App() {
                   {/* Add Score */}
                   <td>
                     <input
-                      type="number"
-                      disabled={player.status === "OUT"}
-                      placeholder="Score"
-                      onKeyDown={async (e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          const value = Number(e.target.value);
-                          if (!value) return;
+  type="number"
+  disabled={player.status === "OUT"}
+  placeholder="Score"
+  value={player.tempScore || ""}
+  onChange={(e) => {
+    const copy = [...players];
+    copy[index].tempScore = e.target.value;
+    setPlayers(copy);
+  }}
+/>
 
-                          try {
-                            const res = await addScore(
-                              matchId,
-                              index,
-                              value
-                            );
-                            setPlayers(res.data.players);
-                            e.target.value = "";
-                          } catch {
-                            alert("Failed to add score");
-                          }
-                        }
-                      }}
-                    />
+<button
+  disabled={player.status === "OUT"}
+  onClick={async () => {
+    const value = Number(player.tempScore);
+    if (!value) return;
+
+    try {
+      const res = await addScore(matchId, index, value);
+      const updated = res.data.players.map(p => ({ ...p, tempScore: "" }));
+      setPlayers(updated);
+    } catch {
+      alert("Failed to add score");
+    }
+  }}
+>
+  ➕ Add
+</button>
+
                   </td>
 
                   {/* History */}
