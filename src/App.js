@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>🎴 Rummy Score Tracker</h1>
+      <h1>Score Tracking Platform</h1>
 
       {/* ===== START SCREEN ===== */}
       {!matchId && (
