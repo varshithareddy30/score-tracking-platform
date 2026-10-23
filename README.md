@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+# Score Tracking Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application for managing matches, tracking player scores, and maintaining score history through a clean and user-friendly interface.
 
-## Available Scripts
+**Live Demo:** https://score-tracking-platform.vercel.app/
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Match Management** — Create matches with multiple players.
+- **Score Tracking** — Add and update player scores in real time.
+- **Score History** — View previous score entries for each player.
+- **Score Correction** — Correct scoring mistakes using the available correction functionality.
+- **Player Re-entry** — Allow eligible players to rejoin a match.
+- **Persistent Storage** — Store match and player data using MongoDB.
+- **Responsive Interface** — Access the application from desktop and mobile browsers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Technology | Purpose |
+|---|---|
+| React.js | Frontend user interface |
+| Node.js | Backend runtime |
+| Express.js | REST API and server-side routing |
+| MongoDB Atlas | Cloud database |
+| Mongoose | MongoDB object modeling |
+| Axios | API communication |
+| Vercel | Frontend deployment |
+| Render | Backend deployment |
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```text
+score-tracking-platform/
+├── backend/
+│   ├── routes/
+│   ├── models/
+│   ├── server.js
+│   └── package.json
+├── public/
+├── src/
+├── package.json
+├── package-lock.json
+└── README.md
+```
 
-### `npm run build`
+*Note: The directory listing above illustrates the main project structure. Your actual folders and files may vary.*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js and npm
+- A MongoDB Atlas account
+- Git
 
-### `npm run eject`
+### 1. Clone the repository
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/varshithareddy30/score-tracking-platform.git
+cd score-tracking-platform
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Install frontend dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 3. Install backend dependencies
 
-## Learn More
+```bash
+cd backend
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 4. Configure environment variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create a `.env` file inside the `backend` directory and add your MongoDB Atlas connection string using the environment variable name expected by your backend code.
 
-### Code Splitting
+```env
+MONGO_URI=your_mongodb_atlas_connection_string
+PORT=5000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Replace the placeholder with your own connection string. If your `server.js` uses a different variable name, use that exact name instead.
 
-### Analyzing the Bundle Size
+**Security:** Never commit your `.env` file, database credentials, or secret keys to GitHub.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 5. Start the backend
 
-### Making a Progressive Web App
+From the `backend` directory, run:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm start
+```
 
-### Advanced Configuration
+### 6. Start the frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Open a second terminal in the project root and run:
 
-### Deployment
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Open the local frontend URL displayed in your terminal.
 
-### `npm run build` fails to minify
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
+
+The deployed frontend communicates with the backend through its configured API URL.
+
+## Future Enhancements
+
+- Player performance statistics
+- Match summaries and leaderboards
+- Improved mobile experience
+- Exportable match reports
+
+## Author
+
+**Varshitha Reddy**
+
+GitHub: https://github.com/varshithareddy30
+
+---
+
+If you find this project useful, feel free to explore the repository and try the live demo.
